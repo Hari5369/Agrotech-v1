@@ -502,7 +502,7 @@
 
     <div class="layout">
         <!-- Sidebar -->
-        <aside class="sidebar" aria-hidden>
+        <aside class="sidebar" id="sidebarNav" aria-hidden>
             <div class="profile-circle" id="sidebarProfileIcon"><i class="fa-solid fa-leaf"></i></div>
             <nav class="menu" role="navigation" aria-label="Main menu">
                 <div class="side-btn active" id="m-dashboard" title="Dashboard" onclick="navClick('dashboard')"><i
@@ -905,7 +905,7 @@
     </div>
 
     <!-- Bottom navigation -->
-    <div class="bottom-nav" id="bottomNav" aria-hidden>
+    <nav class="bottom-nav" id="bottomNav">
         <div class="bbtn active" id="b-dashboard" title="Dashboard" onclick="navClick('dashboard')"><i
                 class="fa-solid fa-house"></i></div>
         <div class="bbtn" id="b-detect" title="Detect" onclick="navClick('detect')"><i
@@ -1266,7 +1266,10 @@ function analyzeField() {
         }
         /* initial */
         hideAllPages();
-        navClick('dashboard');
+pageHome.style.display = 'flex';
+
+sidebarNav.style.display = 'none';
+bottomNav.style.display = 'none';
 
         /* ======================= AUTH UI ======================= */
 function showSignIn() {
@@ -1285,6 +1288,8 @@ function showSignUp() {
         const authPanel = document.getElementById('authPanel');
         const signInForm = document.getElementById('signInForm');
         const signUpForm = document.getElementById('signUpForm');
+        const sidebarNav = document.getElementById('sidebarNav');
+const bottomNav = document.getElementById('bottomNav');
 
         document.getElementById('switchToSignUp').onclick = () => { signInForm.style.display = 'none'; signUpForm.style.display = 'block'; document.getElementById('siMsg').textContent = ''; };
         document.getElementById('switchToSignIn').onclick = () => { signUpForm.style.display = 'none'; signInForm.style.display = 'block'; document.getElementById('suMsg').textContent = ''; };
@@ -1337,6 +1342,8 @@ function showSignUp() {
                 document.getElementById('profileAvatar').textContent = (user.displayName || user.email).charAt(0).toUpperCase();
                 // hide overlay
                 authPanel.style.display = 'none';
+                sidebarNav.style.display = 'flex';
+bottomNav.style.display = 'flex';
                 // show app
                 navClick('dashboard');
             } else {
@@ -1346,6 +1353,9 @@ hideAllPages();
     document.getElementById('page-home').style.display = 'flex';
 
     authPanel.style.display = 'none';
+
+    sidebarNav.style.display = 'none';
+    bottomNav.style.display = 'none';
             }
         });
 
