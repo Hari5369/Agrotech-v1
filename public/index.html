@@ -365,13 +365,14 @@
 
         /* Auth overlay (login/signup) */
         #authPanel {
-            position: fixed;
-            inset: 0;
-            z-index: 60;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0.38)), url('https://images.unsplash.com/photo-1518732714860-b62714ce0c59?auto=format&fit=crop&w=1600&q=70') center/cover;
+             position: fixed;
+    inset: 0;
+    z-index: 60;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(rgba(0,0,0,.32), rgba(0,0,0,.38)),
+                url('https://images.unsplash.com/photo-1518732714860-b62714ce0c59?auto=format&fit=crop&w=1600&q=70') center/cover;
+    display: none;
         }
 
         .authBox {
@@ -538,6 +539,79 @@
             </div>
 
             <div class="content" id="contentArea">
+                <!-- Landing Page -->
+<section id="page-home" class="dashboard-wrap">
+    <div class="welcome-box">
+        <div class="welcome-left">
+            <h1>Welcome to AgroTech</h1>
+
+            <p>
+                Smart Farming Dashboard designed to help farmers
+                monitor crops, detect diseases, analyze fields,
+                and improve productivity.
+            </p>
+
+            <div style="margin-top:20px;">
+                <button class="primary-btn" onclick="showSignIn()">
+                    Sign In
+                </button>
+
+                <button
+                    style="
+                        padding:10px 14px;
+                        border-radius:10px;
+                        border:1px solid #2ecc71;
+                        background:white;
+                        cursor:pointer;
+                    "
+                    onclick="showSignUp()">
+                    Sign Up
+                </button>
+            </div>
+        </div>
+
+        <div class="welcome-right">
+            <img
+                src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=900&q=70"
+                alt="AgroTech">
+        </div>
+    </div>
+    <section id="landing-features" class="page-card" style="display:block; margin-top:20px;">
+    <h3>Main Features</h3>
+
+    <div class="row">
+
+        <div class="field" style="flex:1; min-width:200px;">
+            <strong>🌱 Disease Detection</strong>
+            <span class="muted">
+                Upload crop images and identify plant diseases.
+            </span>
+        </div>
+
+        <div class="field" style="flex:1; min-width:200px;">
+            <strong>💧 Moisture Monitoring</strong>
+            <span class="muted">
+                Monitor soil moisture and sensor data in real time.
+            </span>
+        </div>
+
+        <div class="field" style="flex:1; min-width:200px;">
+            <strong>🌾 Seed Calculator</strong>
+            <span class="muted">
+                Calculate seed requirements based on crop and field size.
+            </span>
+        </div>
+
+        <div class="field" style="flex:1; min-width:200px;">
+            <strong>🗺 Field Analysis</strong>
+            <span class="muted">
+                Analyze soil and crop suitability for better productivity.
+            </span>
+        </div>
+
+    </div>
+</section>
+</section>
                 <!-- Dashboard -->
                 <section id="page-dashboard" class="dashboard-wrap">
                     <div class="welcome-box">
@@ -547,7 +621,7 @@
                         </div>
                         <div class="welcome-right"><img
                                 src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=900&q=70"
-                                alt="plant" /></div>
+                                alt="plant" /></div>    
                     </div>
                 </section>
 
@@ -1136,13 +1210,20 @@ function analyzeField() {
         const db = firebase.database();
 
         /* ======================= UI References ======================= */
+        const pageHome = document.getElementById('page-home');
         const pageDashboard = document.getElementById('page-dashboard');
         const pageDetect = document.getElementById('page-detect');
         const pageSeed = document.getElementById('page-seed');
         const pageMoisture = document.getElementById('page-moisture');
         const pageProfile = document.getElementById('page-profile');
         const pageField = document.getElementById('page-field');
-        const allPages = [pageDashboard, pageDetect, pageSeed, pageMoisture, pageProfile, pageField];
+        const allPages = [pageHome,
+    pageDashboard,
+    pageDetect,
+    pageSeed,
+    pageMoisture,
+    pageProfile,
+    pageField];
 
         const sideButtons = {
             dashboard: document.getElementById('m-dashboard'),
@@ -1188,6 +1269,19 @@ function analyzeField() {
         navClick('dashboard');
 
         /* ======================= AUTH UI ======================= */
+function showSignIn() {
+    document.getElementById('authPanel').style.display = 'flex';
+
+    document.getElementById('signInForm').style.display = 'block';
+    document.getElementById('signUpForm').style.display = 'none';
+}
+
+function showSignUp() {
+    document.getElementById('authPanel').style.display = 'flex';
+
+    document.getElementById('signInForm').style.display = 'none';
+    document.getElementById('signUpForm').style.display = 'block';
+}
         const authPanel = document.getElementById('authPanel');
         const signInForm = document.getElementById('signInForm');
         const signUpForm = document.getElementById('signUpForm');
@@ -1247,8 +1341,11 @@ function analyzeField() {
                 navClick('dashboard');
             } else {
                 // show overlay
-                authPanel.style.display = 'flex';
-                hideAllPages();
+hideAllPages();
+
+    document.getElementById('page-home').style.display = 'flex';
+
+    authPanel.style.display = 'none';
             }
         });
 
